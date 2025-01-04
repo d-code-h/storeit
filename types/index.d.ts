@@ -99,3 +99,11 @@ declare interface HeaderProps {
   userId: string;
   accountId: string;
 }
+
+declare interface ThumbnailProps {
+  type: string;
+  extension: string;
+  url?: string;
+  imageClassName?: string;
+  className?: string;
+}
