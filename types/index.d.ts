@@ -74,3 +74,28 @@ declare interface ShareInputProps {
   onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onRemove: (email: string) => void;
 }
+
+declare interface FileUploaderProps {
+  ownerId: string;
+  accountId: string;
+  className?: string;
+}
+
+declare interface MobileNavProps {
+  $id: string;
+  accountId: string;
+  fullName: string;
+  avatar: string;
+  email: string;
+}
+
+declare interface SidebarProps {
+  fullName: string;
+  avatar: string;
+  email: string;
+}
+
+declare interface HeaderProps {
+  userId: string;
+  accountId: string;
+}
