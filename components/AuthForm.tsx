@@ -17,6 +17,7 @@ import { Input } from './ui/input';
 import Image from 'next/image';
 import Link from 'next/link';
 import OptModal from './OtpModal';
+import { createAccount, signInUser } from '@/lib/actions/user.actions';
 
 type FormType = 'sign-in' | 'sign-up';
 
@@ -44,12 +45,30 @@ const AuthForm = ({ type }: { type: FormType }) => {
 
   // Define a submit handler.
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    // Reset states
     setIsLoading(true);
     setErrorMessage('');
 
-    // try {
+    try {
+      // Create account or sign in user
+      const user =
+        type === 'sign-up'
+          ? await createAccount({
+              fullName: values.fullName || '',
+              email: values.email,
+            })
+          : await signInUser({ email: values.email });
 
-    // } catch (error) {}
+      // Set account id
+      setAccountId(user.accountId);
+    } catch (error) {
+      console.error(error);
+      // Set error message
+      setErrorMessage('Failed to create account. Please try again.');
+    } finally {
+      // Reset loading state
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -111,7 +130,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
 
             {isLoading && (
               <Image
-                src="/public/assets/icons/loader.svg"
+                src="/assets/icons/loader.svg"
                 alt="loader"
                 width={24}
                 height={24}
@@ -125,7 +144,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
 
           <div className="body-2 flex justify-center">
             <p className="text-light-100">
-              {type === 'Sign-in'
+              {type === 'sign-in'
                 ? "Don't have an account?"
                 : 'Already have an account?'}
             </p>
