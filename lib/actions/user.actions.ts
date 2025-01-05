@@ -61,11 +61,12 @@ export const createAccount = async ({
   // Check if the user already exists
   const existingUser = await getUserByEmail(email);
 
-  const accountId = await sendEmailOTP({ email });
-
-  if (!accountId) throw new Error('Failed to send email OTP');
-
   if (!existingUser) {
+    // Send OTP if user does not exist
+    const accountId = await sendEmailOTP({ email });
+
+    if (!accountId) throw new Error('Failed to send email OTP');
+
     // Create a new Appwrite client
     const { databases } = await createAdminClient();
 
@@ -85,6 +86,10 @@ export const createAccount = async ({
     // Return the account ID
     return parseStringify({ accountId });
   }
+  return parseStringify({
+    accountId: null,
+    error: 'A user with this credential already exist. Try signing in.',
+  });
 };
 
 // Verify the email OTP

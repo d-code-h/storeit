@@ -19,8 +19,6 @@ import Link from 'next/link';
 import OptModal from './OtpModal';
 import { createAccount, signInUser } from '@/lib/actions/user.actions';
 
-type FormType = 'sign-in' | 'sign-up';
-
 const AuthForm = ({ type }: { type: FormType }) => {
   // States
   const [isLoading, setIsLoading] = useState(false);
@@ -60,7 +58,11 @@ const AuthForm = ({ type }: { type: FormType }) => {
           : await signInUser({ email: values.email });
 
       // Set account id
-      setAccountId(user.accountId);
+      if (user?.accountId) {
+        setAccountId(user.accountId);
+      } else {
+        setErrorMessage(user.error);
+      }
     } catch (error) {
       console.error(error);
       // Set error message
@@ -78,7 +80,10 @@ const AuthForm = ({ type }: { type: FormType }) => {
           <h1 className="form-title">
             {type === 'sign-in' ? 'Sign In' : 'Sign Up'}
           </h1>
+          {/* Error Messages */}
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
 
+          {/* Render fullname field on sign-up page */}
           {type === 'sign-up' && (
             <FormField
               control={form.control}
@@ -101,6 +106,8 @@ const AuthForm = ({ type }: { type: FormType }) => {
               )}
             />
           )}
+
+          {/* Render email field on both sign-in and sign-up page */}
           <FormField
             control={form.control}
             name="email"
@@ -121,6 +128,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
               </FormItem>
             )}
           />
+
           <Button
             type="submit"
             className="form-submit-button"
@@ -128,6 +136,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
           >
             {type === 'sign-in' ? 'Sign In' : 'Sign Up'}
 
+            {/* Show logging indicator on form submit */}
             {isLoading && (
               <Image
                 src="/assets/icons/loader.svg"
@@ -138,9 +147,6 @@ const AuthForm = ({ type }: { type: FormType }) => {
               />
             )}
           </Button>
-
-          {/* Error Messages */}
-          {errorMessage && <p className="error-message">{errorMessage}</p>}
 
           <div className="body-2 flex justify-center">
             <p className="text-light-100">
@@ -158,6 +164,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
         </form>
       </Form>
 
+      {/* Show OTP modal after sending OTP */}
       {accountId && (
         <OptModal email={form.getValues('email')} accountId={accountId} />
       )}

@@ -107,3 +107,11 @@ declare interface ThumbnailProps {
   imageClassName?: string;
   className?: string;
 }
+
+declare interface FileUploaderProps {
+  ownerId: string;
+  accountId: string;
+  className?: string;
+}
+
+declare type FormType = 'sign-in' | 'sign-up';

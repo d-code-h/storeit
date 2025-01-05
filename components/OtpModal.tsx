@@ -36,26 +36,30 @@ const OtpModal = ({
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
+  // Handle OTP code submission
   const handleSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
+      // Verify OTP
       const sessionId = await verifySecret({
         accountId,
         password,
       });
 
-      console.log(sessionId);
+      // Navigate to dashboard after user signed in
       if (sessionId) router.push('/');
-    } catch (error) {
-      console.log('Failed to verify OTP. Please try again.', error);
+    } catch {
+      // Set error message
       setError('Failed to verify OTP. Please try again.');
     }
 
+    // Disable loading state
     setIsLoading(false);
   };
 
+  // OTP resending
   const handleOtpResend = async () => {
     // Resend OTP
     await sendEmailOTP({ email });
@@ -104,6 +108,7 @@ const OtpModal = ({
               type="button"
             >
               Submit
+              {/* Show loading state after otp submission */}
               {isLoading && (
                 <Image
                   src="/assets/icons/loader.svg"
@@ -115,6 +120,7 @@ const OtpModal = ({
               )}
             </AlertDialogAction>
 
+            {/* Resend otp button */}
             <div className="subtitle-2 mt-2 text-center text-light-100">
               Didn&apos;t get a code?
               <Button
