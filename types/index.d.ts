@@ -115,3 +115,9 @@ declare interface FileUploaderProps {
 }
 
 declare type FormType = 'sign-in' | 'sign-up';
+
+declare interface ActionsModalContentProps {
+  file: Models.Document;
+  onInputChange: React.Dispatch<React.SetStateAction<string[]>>;
+  onRemove: (email: string) => void;
+}

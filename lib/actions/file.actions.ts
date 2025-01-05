@@ -16,7 +16,7 @@ const handleError = (error: unknown, message: string) => {
 };
 
 // Upload file properties
-export const uploadedFile = async ({
+export const uploadFile = async ({
   file,
   ownerId,
   accountId,

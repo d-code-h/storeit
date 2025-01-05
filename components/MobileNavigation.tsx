@@ -9,13 +9,13 @@ import {
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { Separator } from '@radix-ui/react-separator';
 import { navItems } from '@/constants';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import FileUploader from './FileUploader';
 import { signOutUser } from '@/lib/actions/user.actions';
+import { Separator } from './ui/separator';
 
 const MobileNavigation = ({
   $id: ownerId,
@@ -61,7 +61,7 @@ const MobileNavigation = ({
                 <p className="caption">{email}</p>
               </div>
             </div>
-            <Separator className="mb-4 bg-light-200/20" />
+            <Separator className="my-4 bg-light-200/20" />
           </SheetTitle>
 
           <nav className="mobile-nav">

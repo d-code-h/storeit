@@ -9,8 +9,10 @@ import { Toaster } from '@/components/ui/toaster';
 export const dynamic = 'force-dynamic';
 
 const Layout = async ({ children }: { children: ReactNode }) => {
+  // Get the currently signed in user
   const currentUser = await getCurrentUser();
 
+  //  Redirect to signin page if no signed in user
   if (!currentUser) return redirect('/sign-in');
 
   return (

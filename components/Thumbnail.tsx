@@ -11,6 +11,7 @@ export const Thumbnail = ({
 }: ThumbnailProps) => {
   const isImage = type === 'image' && extension !== 'svg';
 
+  console.log(url);
   return (
     <figure className={cn('thumbnail', className)}>
       <Image

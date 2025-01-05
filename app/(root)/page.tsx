@@ -1,4 +1,4 @@
-import Chart from '@/components/Chart';
+import { Chart } from '@/components/Chart';
 import { getFiles, getTotalSpaceUsed } from '@/lib/actions/file.actions';
 import { convertFileSize, getUsageSummary } from '@/lib/utils';
 import Link from 'next/link';
@@ -22,7 +22,7 @@ const Dashboard = async () => {
   return (
     <div className="dashboard-container">
       <section>
-        <Chart />
+        <Chart used={totalSpace.used} />
 
         {/* Uploaded file type summaries */}
         <ul className="dashboard-summary-list">
