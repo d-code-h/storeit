@@ -7,7 +7,7 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { navItems } from '@/constants';
 import Link from 'next/link';
@@ -26,6 +26,26 @@ const MobileNavigation = ({
 }: MobileNavProps) => {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+
+  useEffect(() => {
+    const handleResize = () => {
+      const isSmorUp = window.matchMedia('(min-width: 640px)').matches;
+      if (isSmorUp) {
+        setOpen(false);
+      }
+    };
+
+    // Initial check on mount
+    handleResize();
+
+    // Add event listener on resize
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup listener on unmount
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <header className="mobile-header">
