@@ -84,12 +84,12 @@ bun install
 Create a new file named `.env.local` in the root of your project and add the following content:
 
 ```
-APPWRITE_ENDPOINT="https://cloud.appwrite.io/v1"
-APPWRITE_PROJECT=""
+NEXT_PUBLIC_APPWRITE_ENDPOINT="https://cloud.appwrite.io/v1"
+NEXT_PUBLIC_APPWRITE_PROJECT=""
 APPWRITE_DATABASE=""
 APPWRITE_USERS_COLLECTION=""
 APPWRITE_FILES_COLLECTION=""
-APPWRITE_BUCKET=""
+NEXT_PUBLIC_APPWRITE_BUCKET=""
 APPWRITE_KEY=""
 ```
 
